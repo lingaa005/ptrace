@@ -1,0 +1,47 @@
+sudo iptables -A INPUT -p  tcp --dport 443 -j ACCEPT
+
+sudo iptables -P INPUT DROP
+
+sudo iptables-save > rules.v4
+cat rules.v4
+
+
+sudo iptables -P INPUT DROP
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+sudo iptables-save
+sudo iptables -L
+
+iptables --version
+
+
+. IPTABLES FIREWALL (Experiment 5)
+
+What is IPTables?
+
+Linux firewall utility.
+
+Controls network traffic.
+
+Check Version
+iptables --version
+Flush Rules
+sudo iptables -F
+
+Removes all rules.
+
+Drop Incoming Traffic
+sudo iptables -P INPUT DROP
+Allow Outgoing
+sudo iptables -P OUTPUT ACCEPT
+Allow SSH
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+Allow HTTP
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+Allow HTTPS
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+Block IP
+sudo iptables -A INPUT -s 192.168.1.100 -j DROP
+Save Rules
+sudo iptables-save > firewall_rules.txt
